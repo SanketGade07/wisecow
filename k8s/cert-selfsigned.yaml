@@ -1,0 +1,21 @@
+# This defines a self-signed ClusterIssuer
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: selfsigned-issuer
+spec:
+  selfSigned: {}
+---
+# This asks cert-manager to create a TLS cert for your app
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wisecow-cert
+  namespace: default
+spec:
+  secretName: wisecow-tls   # cert-manager will create this secret
+  dnsNames:
+    - wisecow.127.0.0.1.nip.io   # same host as your Ingress
+  issuerRef:
+    name: selfsigned-issuer
+    kind: ClusterIssuer
