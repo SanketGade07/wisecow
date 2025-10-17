@@ -2,9 +2,13 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: wisecow-ingress
-  annotations:
-    kubernetes.io/ingress.class: nginx
+  namespace: default
 spec:
+  ingressClassName: nginx      
+  tls:
+  - hosts:
+      - wisecow.127.0.0.1.nip.io
+    secretName: wisecow-tls
   rules:
   - host: wisecow.127.0.0.1.nip.io
     http:
