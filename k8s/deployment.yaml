@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
       - name: wisecow
-        image: wisecow:local
-        imagePullPolicy: IfNotPresent
+        image: sanketgade07/wisecow:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 4499
         readinessProbe:
@@ -30,3 +30,7 @@ spec:
             port: 4499
           initialDelaySeconds: 15
           periodSeconds: 20
+        securityContext:
+          appArmorProfile:
+            type: Localhost
+            localhostProfile: kubearmor-apparmor

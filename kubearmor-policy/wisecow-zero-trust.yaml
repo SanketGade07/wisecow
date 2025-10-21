@@ -1,0 +1,22 @@
+
+apiVersion: security.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  name: wisecow-zero-trust
+  namespace: default
+spec:
+  severity: 5
+  message: "Zero Trust violation detected in Wisecow container"
+  selector:
+    matchLabels:
+      app: wisecow
+  process:
+    matchPaths:
+      - path: /bin/sh
+      - path: /bin/bash
+      - path: /usr/bin/sh
+      - path: /usr/bin/bash
+      - path: /usr/bin/curl
+      - path: /bin/curl
+      - path: /usr/local/bin/curl
+  action: Block
